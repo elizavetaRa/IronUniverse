@@ -1,0 +1,71 @@
+
+body{
+    margin: 0;
+}
+
+#container{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+#gamefield{
+    background-color: rgb(14, 14, 80);
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+#elipse1{
+    width: 500px;
+    height: 500px;
+    border: 2px solid rgb(255, 255, 255);
+    position: absolute;
+    top: 100px;
+    left: 500px;
+    border-radius: 50%;
+    
+}
+
+.path{
+    border: 2px solid rgb(228, 214, 214);
+    border-radius: 50%;
+    position: absolute;
+
+}
+
+.sun{
+    position: absolute;
+    background-color: rgb(196, 155, 22);
+    border-radius: 50%;
+}
+
+#elipse2{
+    width: 600px;
+    height: 600px;
+    border: 1px solid rgb(255, 255, 255);
+    position: absolute;
+    top: 50px;
+    left: 450px;
+    border-radius: 50%;
+}
+
+.me1{
+    width: 50px;
+    height: 50px;
+    border: 1px solid lightblue;
+    background-color: lightblue;
+    border-radius: 50%;
+    position: absolute;
+
+}
+
+#comet{
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgb(117, 16, 16);
+    background-color: rgb(117, 16, 16);
+    border-radius: 50%;
+    position: absolute;
+
+}
