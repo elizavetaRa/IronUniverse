@@ -1,5 +1,6 @@
 var Circle = function(r, circleClass, x, y){
-
+    this.id;
+    
     this.r  = r;
 
     this.x = x;

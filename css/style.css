@@ -15,14 +15,10 @@ body {
   position: relative;
 }
 
-#elipse1 {
-  width: 500px;
-  height: 500px;
-  border: 2px solid white;
-  position: absolute;
-  top: 100px;
-  left: 500px;
+.comet {
+  background-color: #640e0e;
   border-radius: 50%;
+  position: absolute;
 }
 
 .path {
@@ -33,7 +29,6 @@ body {
 
 .sun {
   position: absolute;
-  background-color: #c49b16;
   border-radius: 50%;
 }
 
@@ -50,10 +45,12 @@ body {
 .me1 {
   width: 50px;
   height: 50px;
-  border: 1px solid lightblue;
-  background-color: lightblue;
   border-radius: 50%;
   position: absolute;
+}
+.me1 img {
+  width: 50px;
+  height: 50px;
 }
 
 #comet {
