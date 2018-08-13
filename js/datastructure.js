@@ -1,3 +1,4 @@
+
 var Circle = function(r, circleClass, x, y){
     this.id;
     
@@ -24,6 +25,17 @@ var Me = function(r, x, y, meClass){
 
     this.htmlMe;
     this.meClass = meClass;
+
+
+}
+
+var Game = function(){
+
+this.level1 = {
+    collectedElements: [], 
+}
+
+    
 
 
 }

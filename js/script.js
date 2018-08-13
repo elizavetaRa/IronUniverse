@@ -214,12 +214,10 @@ $(document).ready(function () {
 
             me.currentCircle = circleArray[circleArray.indexOf(me.currentCircle) + 1]
 
-            p -= 0.002;
+            p -= 0.003;
 
             moveMe = setInterval(function () {
-
                 moveMeOnCircle(me.currentCircle);
-
             }, 1)
 
 
@@ -230,16 +228,48 @@ $(document).ready(function () {
             clearInterval(moveMe);
             $("#me").stop(true)
             me.currentCircle = circleArray[circleArray.indexOf(me.currentCircle) - 1]
-
-            p -= 0.002;
-
+            p -= 0.003;
             moveMe = setInterval(function () {
-
                 moveMeOnCircle(me.currentCircle);
 
             }, 1)
         }
     });
+
+
+    var hitTest = setInterval(function(){
+
+        $(".comet").each(function(){
+
+           if (hitCheck($(this), $("#me"))){
+               console.log("hit")
+           }
+        })
+
+        $(".html").each(function(){
+
+            if (hitCheck($(this), $("#me"))){
+                console.log("got it")
+            }
+         })
+
+    }, 2)
+
+
+    function hitCheck(a, b) {
+        var aTop = a.offset().top;
+        var aLeft = a.offset().left;
+        var bTop = b.offset().top;
+        var bLeft = b.offset().left;
+
+        return !(
+                ((aTop + a.height()) < (bTop)) ||
+                (aTop > (bTop + b.height())) ||
+                ((aLeft + a.width()) < bLeft) ||
+                (aLeft > (bLeft + b.width()))
+                );
+    }
+
 
 
 
