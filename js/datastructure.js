@@ -20,6 +20,8 @@ var Me = function(r, x, y, meClass){
     this.x = x;
     this.y = y;
 
+    this.currentCircle;
+
     this.htmlMe;
     this.meClass = meClass;
 

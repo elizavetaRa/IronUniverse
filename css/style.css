@@ -16,7 +16,7 @@ body {
 }
 
 .comet {
-  background-color: #640e0e;
+  background-color: #b65454;
   border-radius: 50%;
   position: absolute;
 }
@@ -32,19 +32,15 @@ body {
   border-radius: 50%;
 }
 
-#elipse2 {
-  width: 600px;
-  height: 600px;
-  border: 1px solid white;
+.html {
   position: absolute;
-  top: 50px;
-  left: 450px;
   border-radius: 50%;
 }
 
+
 .me1 {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   position: absolute;
 }
@@ -56,7 +52,6 @@ body {
 #comet {
   width: 20px;
   height: 20px;
-  border: 1px solid #751010;
   background-color: #751010;
   border-radius: 50%;
   position: absolute;
