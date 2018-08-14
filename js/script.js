@@ -34,35 +34,44 @@ $(document).ready(function () {
     var path5 = new Circle(150, "path")
     produceHtmlCircle(path5);
 
-    var circleArray = [path1, path2, path3, path4, path5]
+    var path6 = new Circle(110, "path")
+    produceHtmlCircle(path6);
+
+    var circleArray = [path1, path2, path3, path4, path5, path6]
 
     $("#startGame").click(function () {
         if ($("#startGame").hasClass("on")) {
 
             $("#startGame").toggleClass("on")
             $("#startGame").text("RESET")
-            if (game.currentLevel == 1) {
+            
 
                 //elements to collect
-                var html = produceHtmlCircle(new Circle(30, "html")).hide().toggle(3000)
+                var html = produceHtmlCircle(new Circle(25, "html")).hide().toggle(3000)
 
-                var css = produceHtmlCircle(new Circle(30, "css")).hide();
+                var css = produceHtmlCircle(new Circle(25, "css")).hide();
 
-                var js = produceHtmlCircle(new Circle(30, "js")).hide()
+                var js = produceHtmlCircle(new Circle(25, "js")).hide()
 
-                game.collectibleElements.push(js, css, html)
+                var node = produceHtmlCircle(new Circle(25, "node")).hide()
+
+                var jquery = produceHtmlCircle(new Circle(25, "jquery")).hide()
+
+                var react = produceHtmlCircle(new Circle(25, "react")).hide()
+
+                var angular = produceHtmlCircle(new Circle(25, "angular")).hide()
+
+                game.collectibleElements.push(angular, jquery, node, react, js, css, html)
                 console.log(game.collectibleElements)
 
 
                 //desturbing things
-
                 produceHittable(10, "comet", circleArray[2], 67, -1)
                 produceHittable(8, "comet", circleArray[3], 45, 1)
                 produceHittable(5, "planet", circleArray[4], 60, -1)
                 //produceHittable(5, "comet", circleArray[4], 60, 1)
 
 
-            }
 
         } else {
 
@@ -79,7 +88,7 @@ $(document).ready(function () {
     produceHtmlMe(me);
     me.currentCircle = circleArray[0];
     var moveMe = setInterval(function () {
-        moveMeOnCircle(circleArray[0]);
+        moveMeOnCircle(me, circleArray[0]);
     }, 1)
 
 
@@ -95,19 +104,19 @@ $(document).ready(function () {
             me.currentCircle = circleArray[circleArray.indexOf(me.currentCircle) + 1]
             p -= 0.003;
             moveMe = setInterval(function () {
-                moveMeOnCircle(me.currentCircle);
+                moveMeOnCircle(me, me.currentCircle);
             }, 1)
 
 
         } else if (event.keyCode == 79 && !(circleArray.indexOf(me.currentCircle) == 0)) {
             clearInterval(moveMe);
             me.currentCircle = circleArray[circleArray.indexOf(me.currentCircle) - 1]
-            p -= 0.003;
+            //p -= 0.003;
             moveMe = setInterval(function () {
-                moveMeOnCircle(me.currentCircle);
+                moveMeOnCircle(me, me.currentCircle);
 
             }, 1)
-        }
+        } 
     });
 
 
@@ -128,7 +137,14 @@ $(document).ready(function () {
                 $(this).toggle(1000)
                 game.collectedElements.push($(this)) 
                 game.collectibleElements.splice(game.collectibleElements.indexOf($(this)), 1);
+                console.log(game.collectibleElements[game.collectibleElements.length-1])
                 game.collectibleElements[game.collectibleElements.length-1].toggle(3000)
+
+                if (game.collectedElements.length === 1){
+                    
+                    //alert("You got more react!")
+                    me.velocity+= 0.001
+                }
                 //game.collectibleElements[indexOf($(this))].
 
             }

@@ -69,7 +69,7 @@ function produceHtmlCircle(circle) {
 
         htmlCircle.css({
             "top": top - 200,
-            "left": left + 50
+            "left": left
         })
         htmlCircle.addClass("collectible")
 
@@ -84,8 +84,73 @@ function produceHtmlCircle(circle) {
             .appendTo($("#" + id))
 
         htmlCircle.css({
-            "top": top,
+            "top": top - 200,
             "left": left + 200
+        })
+
+        htmlCircle.addClass("collectible")
+
+    }
+
+    if (circle.circleClass == "node") {
+        $("<img src='img/node.png'></img>").css({
+            "width": circleWidth,
+            "height": circleHeight
+        })
+            .appendTo($("#" + id))
+
+        htmlCircle.css({
+            "top": top - 100,
+            "left": left + 200
+        })
+
+        htmlCircle.addClass("collectible")
+
+    }
+
+    if (circle.circleClass == "jquery") {
+        $("<img src='img/jquery.png'></img>").css({
+            "width": circleWidth,
+            "height": circleHeight
+        })
+            .appendTo($("#" + id))
+
+        htmlCircle.css({
+            "top": top +220,
+            "left": left
+        })
+
+        htmlCircle.addClass("collectible")
+
+    }
+
+
+    if (circle.circleClass == "angular") {
+        $("<img src='img/angular.png'></img>").css({
+            "width": circleWidth,
+            "height": circleHeight
+        })
+            .appendTo($("#" + id))
+
+        htmlCircle.css({
+            "top": top +220,
+            "left": left
+        })
+
+        htmlCircle.addClass("collectible")
+
+    }
+
+    if (circle.circleClass == "react") {
+        $("<img src='img/react.png'></img>").css({
+            "width": circleWidth,
+            "height": circleHeight
+        })
+            .appendTo($("#" + id))
+
+        htmlCircle.css({
+            "top": top -220,
+            "left": left+200
         })
 
         htmlCircle.addClass("collectible")
@@ -98,7 +163,7 @@ function produceHtmlCircle(circle) {
     circle.y = gameWidth / 2;
     circle.id = id;
 
-    return $("#"+id)
+    return $("#" + id)
 
 
 }
@@ -149,7 +214,7 @@ function moveObjOnCircle(objId, circle, velocity, direction) {
     t += 0.01;
     var xcenter = gameWidth / 2;
     var ycenter = gameHeight / 2;
-    var newLeft = Math.floor(xcenter + direction*(circle.r * Math.cos(t)));
+    var newLeft = Math.floor(xcenter + direction * (circle.r * Math.cos(t)));
     var newTop = Math.floor(ycenter + (circle.r * Math.sin(t)));
     $(objId).animate({
         top: newTop,
@@ -158,7 +223,7 @@ function moveObjOnCircle(objId, circle, velocity, direction) {
 }
 
 
-function moveMeOnCircle(circle) {
+function moveMeOnCircle(me, circle) {
 
     var xcenter = gameWidth / 2 - 25;
     var ycenter = gameHeight / 2 - 25;
@@ -168,7 +233,7 @@ function moveMeOnCircle(circle) {
         top: newTop,
         left: newLeft,
     }, 0, function () {
-        p += 0.0008;
+        p += me.velocity;
 
     });
 

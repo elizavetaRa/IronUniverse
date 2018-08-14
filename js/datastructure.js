@@ -1,8 +1,8 @@
 
-var Circle = function(r, circleClass, x, y){
+var Circle = function (r, circleClass, x, y) {
     this.id;
-    
-    this.r  = r;
+
+    this.r = r;
 
     this.x = x;
 
@@ -15,11 +15,13 @@ var Circle = function(r, circleClass, x, y){
 }
 
 
-var Me = function(r, x, y, meClass){
+var Me = function (r, x, y, meClass) {
 
     this.r = r;
     this.x = x;
     this.y = y;
+    this.velocity = 0.0008
+    this.direction = 1;
 
     this.currentCircle;
 
@@ -31,12 +33,12 @@ var Me = function(r, x, y, meClass){
 
 
 
-var Game = function(){
+var Game = function () {
 
-this.currentLevel = 1;  
-this.collectibleElements = [];
-this.collectedElements= [];
-this.circleArray= []
+
+    this.collectibleElements = [];
+    this.collectedElements = [];
+    this.circleArray = []
 
 
 }
