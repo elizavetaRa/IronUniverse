@@ -62,9 +62,15 @@ button{
 #collected-things {
 
   display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+}
+
+.line{
+  display: flex;
   flex-direction: row;
   justify-content: space-around;
-  flex-wrap: wrap;
 
 }
 

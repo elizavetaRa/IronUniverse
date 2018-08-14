@@ -8,6 +8,8 @@ var Circle = function (r, circleClass, x, y) {
 
     this.y = y;
 
+    this.t;
+
     this.htmlCircle;
 
     this.circleClass = circleClass;
@@ -20,8 +22,7 @@ var Me = function (r, x, y, meClass) {
     this.r = r;
     this.x = x;
     this.y = y;
-    this.velocity = 0.0008
-    this.direction = 1;
+    this.velocity = 0.02
 
     this.currentCircle;
 

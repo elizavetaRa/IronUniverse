@@ -195,36 +195,36 @@ function hitCheck(a, b) {
     );
 }
 
+function produceHittable(r, hittableClass, circle, t,  direction) {
+var hittable = new Circle(r, hittableClass)
+hittable.t = t;
+produceHtmlCircle(hittable);
+var selectorHittable = '#' + hittable.id;
+var startTime = setInterval(function () {
+    moveObjOnCircle(hittable, selectorHittable, circle, t, direction);
+}, 5)
 
-function produceHittable(r, hittableClass, circle, v, direction) {
-    var hittable = new Circle(r, hittableClass)
-    produceHtmlCircle(hittable);
-    var selectorHittable = '#' + hittable.id;
-    var startTime = setInterval(function () {
-        moveObjOnCircle(selectorHittable, circle, v, direction);
-    }, 3)
-
-    return hittable
+return hittable
 }
 
 
 
-function moveObjOnCircle(objId, circle, velocity, direction) {
+function moveObjOnCircle(hittable, objId, circle, t, direction) {
 
-    t += 0.01;
-    var xcenter = gameWidth / 2;
-    var ycenter = gameHeight / 2;
-    var newLeft = Math.floor(xcenter + direction * (circle.r * Math.cos(t)));
-    var newTop = Math.floor(ycenter + (circle.r * Math.sin(t)));
-    $(objId).animate({
-        top: newTop,
-        left: newLeft,
-    }, velocity);
+hittable.t+= t;
+var xcenter = gameWidth / 2;
+var ycenter = gameHeight / 2;
+var newLeft = Math.floor(xcenter + direction * (circle.r * Math.cos(hittable.t)))-hittable.r/2;
+var newTop = Math.floor(ycenter + (circle.r * Math.sin(hittable.t)))-hittable.r/2;
+$(objId).animate({
+    top: newTop,
+    left: newLeft,
+}, 0);
 }
 
 
 function moveMeOnCircle(me, circle) {
-
+    p += me.velocity;
     var xcenter = gameWidth / 2 - 25;
     var ycenter = gameHeight / 2 - 25;
     var newLeft = Math.floor(xcenter + (circle.r * Math.cos(p)));
@@ -233,7 +233,7 @@ function moveMeOnCircle(me, circle) {
         top: newTop,
         left: newLeft,
     }, 0, function () {
-        p += me.velocity;
+        
 
     });
 

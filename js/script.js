@@ -3,7 +3,7 @@ var gameWidth;
 var gameHeight;
 var idproducer = 0;
 var flag;
-var t = Date.now(); //step for objects
+//var t = 0;
 var p = 0; //step for me
 var game;
 
@@ -64,11 +64,11 @@ $(document).ready(function () {
                 game.collectibleElements.push(angular, jquery, node, react, js, css, html)
                 console.log(game.collectibleElements)
 
-
+                
                 //desturbing things
-                produceHittable(10, "comet", circleArray[2], 67, -1)
-                produceHittable(8, "comet", circleArray[3], 45, 1)
-                produceHittable(5, "planet", circleArray[4], 60, -1)
+                produceHittable(10, "comet", circleArray[2], 0.1,  -1)
+                produceHittable(8, "comet", circleArray[3],  0.07,  1)
+                produceHittable(5, "planet", circleArray[4],  0.09,  -1)
                 //produceHittable(5, "comet", circleArray[4], 60, 1)
 
 
@@ -92,17 +92,13 @@ $(document).ready(function () {
     }, 1)
 
 
-    // Functions
-
-
-
     // interaction functions
 
     $(window).keydown(function (event) {
         if (event.keyCode == 73 && !(circleArray.indexOf(me.currentCircle) == circleArray.length - 1)) {
             clearInterval(moveMe);
             me.currentCircle = circleArray[circleArray.indexOf(me.currentCircle) + 1]
-            p -= 0.003;
+            //p -= 0.003;
             moveMe = setInterval(function () {
                 moveMeOnCircle(me, me.currentCircle);
             }, 1)
@@ -141,9 +137,11 @@ $(document).ready(function () {
                 game.collectibleElements[game.collectibleElements.length-1].toggle(3000)
 
                 if (game.collectedElements.length === 1){
-                    
-                    //alert("You got more react!")
-                    me.velocity+= 0.001
+                    produceHittable(10, "planet", circleArray[1],  0.09,  1)
+                }
+
+                if (game.collectedElements.length === 3){
+                    produceHittable(10, "comet", circleArray[2],  0.03,  1)
                 }
                 //game.collectibleElements[indexOf($(this))].
 
