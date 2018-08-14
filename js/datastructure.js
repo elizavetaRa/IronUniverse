@@ -33,14 +33,10 @@ var Me = function(r, x, y, meClass){
 
 var Game = function(){
 
-this.currentLevel = 1;    
-this.level1= {
-    collectedElements: [], 
-}
-
+this.currentLevel = 1;  
+this.collectibleElements = [];
+this.collectedElements= [];
 this.circleArray= []
-
-    
 
 
 }

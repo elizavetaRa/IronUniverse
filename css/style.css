@@ -121,15 +121,15 @@ button{
 
 
 .me1 {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   position: absolute;
   box-shadow: 1px 1px 30px 2px #e6d5d5; 
 }
 .me1 img {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
 }
 
 #comet {

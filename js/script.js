@@ -44,51 +44,23 @@ $(document).ready(function () {
             if (game.currentLevel == 1) {
 
                 //elements to collect
-                var html = new Circle(30, "html")
-                produceHtmlCircle(html);
-                $("#" + html.id).hide()
-                $("#" + html.id).toggle(3000)
+                var html = produceHtmlCircle(new Circle(30, "html")).hide().toggle(3000)
 
+                var css = produceHtmlCircle(new Circle(30, "css")).hide();
 
-                var css = new Circle(30, "css")
-                produceHtmlCircle(css);
-                $("#" + css.id).hide()
+                var js = produceHtmlCircle(new Circle(30, "js")).hide()
 
-                var js = new Circle(30, "js")
-                produceHtmlCircle(js);
-                $("#" + js.id).hide()
+                game.collectibleElements.push(js, css, html)
+                console.log(game.collectibleElements)
 
 
                 //desturbing things
 
-                /*var comet1 = new Circle(10, "comet")
-                produceHtmlCircle(comet1);
-                var selectorComet1 = '#' + comet1.id;
-                var startTime2 = setInterval(function () {
-                    moveObjOnCircle(selectorComet1, circle2, 67);
-                }, 3)*/
-
                 produceHittable(10, "comet", circleArray[2], 67, -1)
                 produceHittable(8, "comet", circleArray[3], 45, 1)
                 produceHittable(5, "planet", circleArray[4], 60, -1)
-                produceHittable(5, "comet", circleArray[4], 60, 1)
+                //produceHittable(5, "comet", circleArray[4], 60, 1)
 
-
-                /*var comet2 = new Circle(8, "comet")
-                produceHtmlCircle(comet2);
-                var selectorComet2 = '#' + comet2.id;
-                var startTime3 = setInterval(function () {
-                    moveObjOnCircle(selectorComet2, path3, 45);
-                }, 3)
-
-                var comet3 = new Circle(5, "comet")
-                produceHtmlCircle(comet3);
-                var selectorComet3 = '#' + comet3.id;
-                var startTime4 = setInterval(function () {
-                    moveObjOnCircle(selectorComet3, circle4, 60);
-                }, 3)
-
-                */
 
             }
 
@@ -139,7 +111,7 @@ $(document).ready(function () {
     });
 
 
-    var hitTest = setInterval(function () {
+    var collisionCheck = setInterval(function () {
 
         $(".comet").each(function () {
 
@@ -148,10 +120,16 @@ $(document).ready(function () {
             }
         })
 
-        $(".html").each(function () {
+        $(".collectible").each(function () {
 
             if (hitCheck($(this), $("#me"))) {
                 console.log("got it")
+                $(this).removeClass("collectible")
+                $(this).toggle(1000)
+                game.collectedElements.push($(this)) 
+                game.collectibleElements.splice(game.collectibleElements.indexOf($(this)), 1);
+                game.collectibleElements[game.collectibleElements.length-1].toggle(3000)
+                //game.collectibleElements[indexOf($(this))].
 
             }
         })

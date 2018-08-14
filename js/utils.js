@@ -55,6 +55,7 @@ function produceHtmlCircle(circle) {
             "top": top + 220,
             "left": left
         })
+        htmlCircle.addClass("collectible")
 
     }
 
@@ -70,6 +71,7 @@ function produceHtmlCircle(circle) {
             "top": top - 200,
             "left": left + 50
         })
+        htmlCircle.addClass("collectible")
 
     }
 
@@ -86,6 +88,8 @@ function produceHtmlCircle(circle) {
             "left": left + 200
         })
 
+        htmlCircle.addClass("collectible")
+
     }
 
 
@@ -93,6 +97,8 @@ function produceHtmlCircle(circle) {
     circle.x = gameHeight / 2;
     circle.y = gameWidth / 2;
     circle.id = id;
+
+    return $("#"+id)
 
 
 }
