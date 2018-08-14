@@ -2,8 +2,9 @@ body {
   margin: 0;
 }
 
-p{
-  font: white;
+h1, p, h2{
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #container {
@@ -16,18 +17,59 @@ p{
   justify-content: left;
 }
 
+button{
+
+  border-radius: 5px;
+  width: 130px;
+  height: 20px;
+}
+
+.on{
+  background-color: #ffffff;
+
+}
+
 #left-col{
   padding: 20px 20px;
+  margin-left: 20px;
+  margin-top: 20px;
   width: 25vw;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   z-index: 1000;
+  border: 1px solid #aa9e9e;
+  box-shadow: 1px 1px 20px 2px #aa9e9e; 
+  border-radius: 3%;
+  
 }
 
 #left-col img{
   
   width: 25vw;
   padding-bottom: 20px;
+}
+
+#task, #level-status{
+  border: 1px solid #aa9e9e;
+  box-shadow: 1px 1px 20px 2px #aa9e9e;  
+  
+  text-align: center;
+  background-color: #0e0e50;
+  border-radius: 10%;
+}
+
+#collected-things {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+}
+
+#collected-things img{
+  width: 60px;
+  height: 60px;
 }
 
 #gamefield {
@@ -38,7 +80,15 @@ p{
 }
 
 .comet {
-  background-color: #b65454;
+  background-color: #b43b3b;
+  box-shadow: 1px 1px 5px 2px #e2d486;  
+  border-radius: 50%;
+  position: absolute;
+}
+
+.planet {
+  background-color: #306ecc;
+  box-shadow: 1px 1px 5px 2px #1d1902;  
   border-radius: 50%;
   position: absolute;
 }
@@ -64,7 +114,7 @@ p{
 
 }
 
-.html {
+.html, .css, .js {
   position: absolute;
   border-radius: 50%;
 }
@@ -75,10 +125,11 @@ p{
   height: 60px;
   border-radius: 50%;
   position: absolute;
+  box-shadow: 1px 1px 30px 2px #e6d5d5; 
 }
 .me1 img {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
 }
 
 #comet {
