@@ -26,33 +26,31 @@ button{
 
 .on{
   background-color: #ffffff;
-
 }
 
 #left-col{
+  background-color: rgba(255, 255, 255, 0.4);
   padding: 20px 20px;
-  margin-left: 20px;
-  margin-top: 20px;
-  width: 25vw;
-  height: 90vh;
+
+  width: 27vw;
   display: flex;
   flex-direction: column;
   z-index: 1000;
-  border: 1px solid #aa9e9e;
-  box-shadow: 1px 1px 20px 2px #aa9e9e; 
-  border-radius: 3%;
+
+
   
 }
 
 #left-col img{
   
-  width: 25vw;
+  width: 20vw;
   padding-bottom: 20px;
 }
 
 #task, #level-status{
   border: 1px solid #aa9e9e;
-  box-shadow: 1px 1px 20px 2px #aa9e9e;  
+  box-shadow: 1px 1px 20px 2px #aa9e9e; 
+  margin-bottom: 5vh; 
   
   text-align: center;
   background-color: #0e0e50;
@@ -87,22 +85,22 @@ button{
 }
 
 .comet {
-  background-color: #b43b3b;
-  box-shadow: 1px 1px 5px 2px #e2d486;  
+  background-color: #d34444;
+  box-shadow: 1px 1px 5px 3px #f0dfde;  
   border-radius: 50%;
   position: absolute;
 }
 
 .planet {
   background-color: #306ecc;
-  box-shadow: 1px 1px 5px 2px #1d1902;  
+  box-shadow: 1px 1px 5px 2px #f2f4fa;  
   border-radius: 50%;
   position: absolute;
 }
 
 .path {
-  border: 1px solid #aa9e9e;
-  box-shadow: 1px 1px 30px 2px #aa9e9e;  
+  border: 2px solid #f1eaea;
+  box-shadow: 1px 1px 20px 2px #cec0c0;  
   border-radius: 50%;
   position: absolute;
 }
@@ -121,33 +119,29 @@ button{
 
 }
 
-.html, .css, .js, .node, .jquery, .angular, .react{
+.html, .css, .js, .node, .jquery, .angular, .react, .mongo, .coin{
   position: absolute;
   border-radius: 50%;
 }
 
 
 .me1 {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   position: absolute;
   box-shadow: 1px 1px 30px 2px #e6d5d5; 
 }
 .me1 img {
-  width: 40px;
-  height: 40px;
-}
-
-#comet {
-  width: 20px;
-  height: 20px;
-  background-color: #751010;
-  border-radius: 50%;
-  position: absolute;
+  width: 45px;
+  height: 45px;
 }
 
 
+
+.card {
+  display: none;
+}
 
 
 
@@ -201,7 +195,7 @@ z-index:0;
   z-index:3;
 
 
-animation:move-clouds-back 300s linear infinite;
+animation:move-clouds-back 100s linear infinite;
 }
 
 

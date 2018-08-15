@@ -12,6 +12,10 @@ $(document).ready(function () {
     game = new Game()
     gameWidth = $("#gamefield").width();
     gameHeight = $("#gamefield").height();
+    console.log("middle h " + gameHeight/2)
+    console.log("middle w " + gameWidth/2)
+
+    
 
 
     // Object declarations
@@ -19,7 +23,7 @@ $(document).ready(function () {
     var sun = new Circle(50, "sun")
     produceHtmlCircle(sun);
 
-    var path1 = new Circle(330, "path")
+    var path1 = new Circle(340, "path")
     produceHtmlCircle(path1);
 
     var path2 = new Circle(290, "path")
@@ -37,39 +41,44 @@ $(document).ready(function () {
     var path6 = new Circle(110, "path")
     produceHtmlCircle(path6);
 
-    var circleArray = [path1, path2, path3, path4, path5, path6]
+    game.circleArray = [path1, path2, path3, path4, path5, path6]
 
     $("#startGame").click(function () {
         if ($("#startGame").hasClass("on")) {
 
             $("#startGame").toggleClass("on")
             $("#startGame").text("RESET")
-            
 
-                //elements to collect
-                var html = produceHtmlCircle(new Circle(25, "html")).hide().toggle(3000)
 
-                var css = produceHtmlCircle(new Circle(25, "css")).hide();
+            //elements to collect
+            var html = produceHtmlCircle(new Circle(25, "html"))
 
-                var js = produceHtmlCircle(new Circle(25, "js")).hide()
+            var css = produceHtmlCircle(new Circle(25, "css")).hide();
 
-                var node = produceHtmlCircle(new Circle(25, "node")).hide()
+            var js = produceHtmlCircle(new Circle(25, "js")).hide()
 
-                var jquery = produceHtmlCircle(new Circle(25, "jquery")).hide()
+            var react = produceHtmlCircle(new Circle(25, "react")).hide()
 
-                var react = produceHtmlCircle(new Circle(25, "react")).hide()
+            var jquery = produceHtmlCircle(new Circle(25, "jquery")).hide()
 
-                var angular = produceHtmlCircle(new Circle(25, "angular")).hide()
+            var node = produceHtmlCircle(new Circle(25, "node")).hide()
 
-                game.collectibleElements.push(angular, jquery, node, react, js, css, html)
-                console.log(game.collectibleElements)
+            var angular = produceHtmlCircle(new Circle(25, "angular")).hide()
 
-                
-                //desturbing things
-                produceHittable(10, "comet", circleArray[2], 0.1,  -1)
-                produceHittable(8, "comet", circleArray[3],  0.07,  1)
-                produceHittable(5, "planet", circleArray[4],  0.09,  -1)
-                //produceHittable(5, "comet", circleArray[4], 60, 1)
+            var mongo = produceHtmlCircle(new Circle(25, "mongo")).hide()
+
+            game.collectibleElements.push(mongo, angular, node, jquery, react, js, css, html)
+            //console.log(game.collectibleElements)
+
+            var coin = produceHtmlCircle(new Circle(10, "coin"))
+
+
+
+            //desturbing things
+            produceHittable(10, "comet", game.circleArray[2], 0.009, -1)
+            produceHittable(8, "comet", game.circleArray[3], 0.008, 1)
+            produceHittable(5, "planet", game.circleArray[4], 0.01, -1)
+
 
 
 
@@ -86,69 +95,86 @@ $(document).ready(function () {
 
     var me = new Me(0, 0, 0, "me1");
     produceHtmlMe(me);
-    me.currentCircle = circleArray[0];
+    me.currentCircle = game.circleArray[0];
     var moveMe = setInterval(function () {
-        moveMeOnCircle(me, circleArray[0]);
-    }, 1)
+        moveMeOnCircle(me, game.circleArray[0]);
+    }, 5)
 
 
     // interaction functions
 
     $(window).keydown(function (event) {
-        if (event.keyCode == 73 && !(circleArray.indexOf(me.currentCircle) == circleArray.length - 1)) {
+        if (event.keyCode == 73 && !(game.circleArray.indexOf(me.currentCircle) == game.circleArray.length - 1)) {
             clearInterval(moveMe);
-            me.currentCircle = circleArray[circleArray.indexOf(me.currentCircle) + 1]
-            //p -= 0.003;
+            me.currentCircle = game.circleArray[game.circleArray.indexOf(me.currentCircle) + 1]
+            
             moveMe = setInterval(function () {
                 moveMeOnCircle(me, me.currentCircle);
             }, 1)
-
-
-        } else if (event.keyCode == 79 && !(circleArray.indexOf(me.currentCircle) == 0)) {
+        } else if (event.keyCode == 79 && !(game.circleArray.indexOf(me.currentCircle) == 0)) {
             clearInterval(moveMe);
-            me.currentCircle = circleArray[circleArray.indexOf(me.currentCircle) - 1]
-            //p -= 0.003;
+            me.currentCircle = game.circleArray[game.circleArray.indexOf(me.currentCircle) - 1]
+
             moveMe = setInterval(function () {
                 moveMeOnCircle(me, me.currentCircle);
-
             }, 1)
-        } 
+        }
     });
 
 
     var collisionCheck = setInterval(function () {
 
-        $(".comet").each(function () {
+        $(".comet, .planet").each(function () {
 
             if (hitCheck($(this), $("#me"))) {
-                console.log("hit")
+                if ($("#me").hasClass("hittable")) {
+                    game.lives--;
+                    $("#hits").text("LIVES: " + game.lives)
+                    $("#me").toggleClass("hittable")
+                    var wait = setTimeout(function () {
+                        $("#me").toggleClass("hittable")
+                    }, 1000)
+
+                }
+
+
+
             }
         })
 
         $(".collectible").each(function () {
 
             if (hitCheck($(this), $("#me"))) {
-                console.log("got it")
                 $(this).removeClass("collectible")
-                $(this).toggle(1000)
-                game.collectedElements.push($(this)) 
+                $(this).toggle(700)
+                game.collectedElements.push($(this))
                 game.collectibleElements.splice(game.collectibleElements.indexOf($(this)), 1);
-                console.log(game.collectibleElements[game.collectibleElements.length-1])
-                game.collectibleElements[game.collectibleElements.length-1].toggle(3000)
+                console.log(game.collectibleElements[game.collectibleElements.length - 1])
 
-                if (game.collectedElements.length === 1){
-                    produceHittable(10, "planet", circleArray[1],  0.09,  1)
+                // Show collected cards instead of placeholder
+                $("#ph" + game.collectedElements.length).hide(500);
+                $("#c" + game.collectedElements.length).show(500);
+
+
+                var timeout = setTimeout(function () {
+                    game.collectibleElements[game.collectibleElements.length - 1].toggle(2000)
+                }, 2500)
+
+
+                // Game levels
+                if (game.collectedElements.length === 2) {
+                    produceHittable(10, "planet", game.circleArray[1], 0.009, 1)
                 }
 
-                if (game.collectedElements.length === 3){
-                    produceHittable(10, "comet", circleArray[2],  0.03,  1)
+                if (game.collectedElements.length === 5) {
+                    produceHittable(10, "comet", game.circleArray[2], 0.01, 1)
                 }
                 //game.collectibleElements[indexOf($(this))].
 
             }
         })
 
-    }, 2)
+    }, 50)
 
 
 

@@ -22,16 +22,6 @@ function produceHtmlCircle(circle) {
         "left": left
     })
 
-    /*if (circle.circleClass == "planet") {
-
-
-        $("<img src='img/sun.png'></img>").css({
-            "width": circleWidth,
-            "height": circleHeight
-        })
-            .appendTo($("#" + id))
-
-    }*/
 
 
 
@@ -42,6 +32,7 @@ function produceHtmlCircle(circle) {
         })
             .appendTo($("#" + id))
 
+
     }
 
     if (circle.circleClass == "html") {
@@ -51,10 +42,7 @@ function produceHtmlCircle(circle) {
         })
             .appendTo($("#" + id))
 
-        htmlCircle.css({
-            "top": top + 220,
-            "left": left
-        })
+        htmlCircle.css(randomPosition())
         htmlCircle.addClass("collectible")
 
     }
@@ -116,7 +104,7 @@ function produceHtmlCircle(circle) {
             .appendTo($("#" + id))
 
         htmlCircle.css({
-            "top": top +220,
+            "top": top + 220,
             "left": left
         })
 
@@ -133,7 +121,7 @@ function produceHtmlCircle(circle) {
             .appendTo($("#" + id))
 
         htmlCircle.css({
-            "top": top +220,
+            "top": top + 220,
             "left": left
         })
 
@@ -149,11 +137,43 @@ function produceHtmlCircle(circle) {
             .appendTo($("#" + id))
 
         htmlCircle.css({
-            "top": top -220,
-            "left": left+200
+            "top": top - 220,
+            "left": left + 200
         })
 
         htmlCircle.addClass("collectible")
+
+    }
+
+    if (circle.circleClass == "mongo") {
+        $("<img src='img/mongo.png'></img>").css({
+            "width": circleWidth,
+            "height": circleHeight
+        })
+            .appendTo($("#" + id))
+
+        htmlCircle.css({
+            "top": top + 220,
+            "left": left
+        })
+
+        htmlCircle.addClass("collectible")
+
+    }
+
+    if (circle.circleClass == "coin") {
+        $("<img src='img/coin.png'></img>").css({
+            "width": circleWidth,
+            "height": circleHeight
+        })
+            .appendTo($("#" + id))
+
+        htmlCircle.css({
+            "top": top - 220,
+            "left": left
+        })
+
+        //htmlCircle.addClass("collectible")
 
     }
 
@@ -169,10 +189,28 @@ function produceHtmlCircle(circle) {
 }
 
 
+
+function randomPosition(circleArray) {
+
+    var r = 340
+    var angle = Math.random() * Math.PI *2;
+
+    var x = Math.cos(angle) * r;
+    var y = Math.sin(angle) * r;
+
+    console.log(gameHeight / 2 + y)
+    console.log(gameWidth / 2 + x)
+
+    return {top: r + y, left: r + x}
+
+}
+
+
 function produceHtmlMe(me) {
 
-    var htmlMe = $("<div id='me' class='" + me.meClass + "'><img src='img/me1.png'></img></div>")
+    var htmlMe = $("<div id='me' class='" + me.meClass + " hittable'><img src='img/me1.png'></img></div>")
     htmlMe.appendTo($("#gamefield"));
+    htmlMe.addClass = "hittable"
 
 
     me.htmlMe = htmlMe;
@@ -195,35 +233,37 @@ function hitCheck(a, b) {
     );
 }
 
-function produceHittable(r, hittableClass, circle, t,  direction) {
-var hittable = new Circle(r, hittableClass)
-hittable.t = t;
-produceHtmlCircle(hittable);
-var selectorHittable = '#' + hittable.id;
-var startTime = setInterval(function () {
-    moveObjOnCircle(hittable, selectorHittable, circle, t, direction);
-}, 5)
+function produceHittable(r, hittableClass, circle, t, direction) {
+    var hittable = new Circle(r, hittableClass)
+    hittable.t = t;
+    produceHtmlCircle(hittable);
+    var selectorHittable = '#' + hittable.id;
+    var startTime = setInterval(function () {
+        moveObjOnCircle(hittable, selectorHittable, circle, t, direction);
+    }, 5)
 
-return hittable
+    return hittable
 }
 
 
 
 function moveObjOnCircle(hittable, objId, circle, t, direction) {
 
-hittable.t+= t;
-var xcenter = gameWidth / 2;
-var ycenter = gameHeight / 2;
-var newLeft = Math.floor(xcenter + direction * (circle.r * Math.cos(hittable.t)))-hittable.r/2;
-var newTop = Math.floor(ycenter + (circle.r * Math.sin(hittable.t)))-hittable.r/2;
-$(objId).animate({
-    top: newTop,
-    left: newLeft,
-}, 0);
+    hittable.t += t;
+    var xcenter = gameWidth / 2;
+    var ycenter = gameHeight / 2;
+    var newLeft = Math.floor(xcenter + direction * (circle.r * Math.cos(hittable.t))) - hittable.r / 2;
+    var newTop = Math.floor(ycenter + (circle.r * Math.sin(hittable.t))) - hittable.r / 2;
+    $(objId).animate({
+        top: newTop,
+        left: newLeft,
+    }, 0);
 }
 
 
 function moveMeOnCircle(me, circle) {
+
+
     p += me.velocity;
     var xcenter = gameWidth / 2 - 25;
     var ycenter = gameHeight / 2 - 25;
@@ -232,9 +272,7 @@ function moveMeOnCircle(me, circle) {
     $("#me").animate({
         top: newTop,
         left: newLeft,
-    }, 0, function () {
-        
+    }, 0);
 
-    });
 
 }
