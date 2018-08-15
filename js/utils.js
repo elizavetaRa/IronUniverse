@@ -151,7 +151,7 @@ function produceHtmlCircle(circle) {
 
             htmlCircle.css(randomPosition(game.circleArray))
 
-        //htmlCircle.addClass("collectible")
+        htmlCircle.addClass("coin")
 
     }
 
@@ -162,8 +162,6 @@ function produceHtmlCircle(circle) {
     circle.id = id;
 
     return $("#" + id)
-
-
 }
 
 

@@ -6,16 +6,17 @@ var flag;
 //var t = 0;
 var p = 0; //step for me
 var game;
+var coin;
 
 $(document).ready(function () {
 
     game = new Game()
     gameWidth = $("#gamefield").width();
     gameHeight = $("#gamefield").height();
-    console.log("middle h " + gameHeight/2)
-    console.log("middle w " + gameWidth/2)
+    console.log("middle h " + gameHeight / 2)
+    console.log("middle w " + gameWidth / 2)
 
-    
+
 
 
     // Object declarations
@@ -51,7 +52,7 @@ $(document).ready(function () {
 
 
             //elements to collect
-            var html = produceHtmlCircle(new Circle(25, "html"))
+            var html = produceHtmlCircle(new Circle(25, "html")).hide().toggle(500)
 
             var css = produceHtmlCircle(new Circle(25, "css")).hide();
 
@@ -70,7 +71,7 @@ $(document).ready(function () {
             game.collectibleElements.push(mongo, angular, node, jquery, react, js, css, html)
             //console.log(game.collectibleElements)
 
-            var coin = produceHtmlCircle(new Circle(10, "coin"))
+            coin = produceHtmlCircle(new Circle(10, "coin"))
 
 
 
@@ -107,7 +108,7 @@ $(document).ready(function () {
         if (event.keyCode == 73 && !(game.circleArray.indexOf(me.currentCircle) == game.circleArray.length - 1)) {
             clearInterval(moveMe);
             me.currentCircle = game.circleArray[game.circleArray.indexOf(me.currentCircle) + 1]
-            
+
             moveMe = setInterval(function () {
                 moveMeOnCircle(me, me.currentCircle);
             }, 1)
@@ -174,7 +175,43 @@ $(document).ready(function () {
             }
         })
 
-    }, 50)
+
+
+        $(".coin").each(function () {
+
+            if (hitCheck($(this), $("#me"))) {
+
+                $(".coin").hide(500)
+                game.lives++;
+
+                var toggleCoin = setTimeout(function () {
+                    console.log($(".coin"))
+                    $(".coin").css(randomPosition(game.circleArray))
+                    $(".coin").show(500)
+
+                }, 1000)
+
+            }
+
+
+
+        })
+
+
+
+
+    })
+
+
+
+
+
+
+
+
+
+
+
 
 
 
