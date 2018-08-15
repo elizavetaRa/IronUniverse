@@ -13,9 +13,6 @@ $(document).ready(function () {
     game = new Game()
     gameWidth = $("#gamefield").width();
     gameHeight = $("#gamefield").height();
-    console.log("middle h " + gameHeight / 2)
-    console.log("middle w " + gameWidth / 2)
-
 
 
 
@@ -75,10 +72,10 @@ $(document).ready(function () {
 
 
 
-            //desturbing things
-            produceHittable(10, "comet", game.circleArray[2], 0.009, -1)
-            produceHittable(8, "comet", game.circleArray[3], 0.008, 1)
-            produceHittable(5, "planet", game.circleArray[4], 0.01, -1)
+            //desturbing things on start
+            produceHittable(10, "comet", game.circleArray[2], 0.007, -1)
+            produceHittable(8, "comet", game.circleArray[3], 0.006, 1)
+            produceHittable(5, "planet", game.circleArray[4], 0.008, -1)
 
 
 
@@ -102,7 +99,7 @@ $(document).ready(function () {
     }, 5)
 
 
-    // interaction functions
+    // Key functions for movements inside and outside
 
     $(window).keydown(function (event) {
         if (event.keyCode == 73 && !(game.circleArray.indexOf(me.currentCircle) == game.circleArray.length - 1)) {
@@ -123,6 +120,8 @@ $(document).ready(function () {
     });
 
 
+    // Collision checks with different things
+
     var collisionCheck = setInterval(function () {
 
         $(".comet, .planet").each(function () {
@@ -138,8 +137,6 @@ $(document).ready(function () {
 
                 }
 
-
-
             }
         })
 
@@ -150,7 +147,7 @@ $(document).ready(function () {
                 $(this).toggle(700)
                 game.collectedElements.push($(this))
                 game.collectibleElements.splice(game.collectibleElements.indexOf($(this)), 1);
-                console.log(game.collectibleElements[game.collectibleElements.length - 1])
+
 
                 // Show collected cards instead of placeholder
                 $("#ph" + game.collectedElements.length).hide(500);
@@ -162,7 +159,7 @@ $(document).ready(function () {
                 }, 2500)
 
 
-                // Game levels
+                // Game levels depending on amount of collected elements
                 if (game.collectedElements.length === 2) {
                     produceHittable(10, "planet", game.circleArray[1], 0.009, 1)
                 }
@@ -175,29 +172,21 @@ $(document).ready(function () {
             }
         })
 
+        // lifes up
+        if (coin !== undefined && hitCheck($(".coin"), $("#me"))) {
+            coin.hide()
+            coin.removeClass(".coin")
+            game.lives++
+            $("#hits").text("LIVES: " + game.lives)
+
+            var toggleCoin = setTimeout(function () {
+                coin.addClass("coin")
+                coin.css(randomPosition(game.circleArray))
+                coin.show(500)
+            }, 3000)
 
 
-        $(".coin").each(function () {
-
-            if (hitCheck($(this), $("#me"))) {
-
-                $(".coin").hide(500)
-                game.lives++;
-
-                var toggleCoin = setTimeout(function () {
-                    console.log($(".coin"))
-                    $(".coin").css(randomPosition(game.circleArray))
-                    $(".coin").show(500)
-
-                }, 1000)
-
-            }
-
-
-
-        })
-
-
+        }
 
 
     })

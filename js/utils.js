@@ -55,7 +55,7 @@ function produceHtmlCircle(circle) {
         })
             .appendTo($("#" + id))
 
-            htmlCircle.css(randomPosition(game.circleArray))
+        htmlCircle.css(randomPosition(game.circleArray))
         htmlCircle.addClass("collectible")
 
     }
@@ -68,7 +68,7 @@ function produceHtmlCircle(circle) {
         })
             .appendTo($("#" + id))
 
-            htmlCircle.css(randomPosition(game.circleArray))
+        htmlCircle.css(randomPosition(game.circleArray))
 
         htmlCircle.addClass("collectible")
 
@@ -97,7 +97,7 @@ function produceHtmlCircle(circle) {
         })
             .appendTo($("#" + id))
 
-            htmlCircle.css(randomPosition(game.circleArray))
+        htmlCircle.css(randomPosition(game.circleArray))
 
         htmlCircle.addClass("collectible")
 
@@ -111,7 +111,7 @@ function produceHtmlCircle(circle) {
         })
             .appendTo($("#" + id))
 
-            htmlCircle.css(randomPosition(game.circleArray))
+        htmlCircle.css(randomPosition(game.circleArray))
         htmlCircle.addClass("collectible")
 
     }
@@ -123,7 +123,7 @@ function produceHtmlCircle(circle) {
         })
             .appendTo($("#" + id))
 
-            htmlCircle.css(randomPosition(game.circleArray))
+        htmlCircle.css(randomPosition(game.circleArray))
 
         htmlCircle.addClass("collectible")
 
@@ -136,7 +136,7 @@ function produceHtmlCircle(circle) {
         })
             .appendTo($("#" + id))
 
-            htmlCircle.css(randomPosition(game.circleArray))
+        htmlCircle.css(randomPosition(game.circleArray))
 
         htmlCircle.addClass("collectible")
 
@@ -149,9 +149,10 @@ function produceHtmlCircle(circle) {
         })
             .appendTo($("#" + id))
 
-            htmlCircle.css(randomPosition(game.circleArray))
+        htmlCircle.css(randomPosition(game.circleArray))
 
-        htmlCircle.addClass("coin")
+        htmlCircle.addClass("coin hitting")
+        htmlCircle.addClass("hitting")
 
     }
 
@@ -171,21 +172,21 @@ function randomPosition(circleArray) {
     // r = c.r
     // offsetLeft && offsetTop mit c.id
 
-    var r = circleArray[Math.floor(Math.random()*circleArray.length)].r;
+    var r = circleArray[Math.floor(Math.random() * circleArray.length)].r;
     var angle = Math.random() * Math.PI * 2;
 
     var x = Math.cos(angle) * r;
     var y = Math.sin(angle) * r;
 
     //var offsetLeft = $('#circle1')[0].offsetLeft;
-    console.log(r)
+
     //console.log("gameWidth ",  gameWidth/2-r)
     //var offsetTop = $('#circle1')[0].offsetTop;
 
-    var offsetLeft = gameWidth/2
-    var offsetTop = gameHeight/2
+    var offsetLeft = gameWidth / 2
+    var offsetTop = gameHeight / 2
 
-    return { top:  y + offsetTop - 25, left:  x + offsetLeft - 25 };
+    return { top: y + offsetTop - 25, left: x + offsetLeft - 25 };
 }
 
 
