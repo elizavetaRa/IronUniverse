@@ -25,6 +25,8 @@ button{
   height: 20px;
 }
 
+
+
 .on{
   background-color: #ffffff;
 }
@@ -51,6 +53,7 @@ button{
   flex-direction: column;
   z-index: 1000;
   align-items: center;
+  justify-content: center;
   position: absolute;
   left: -100vw;
   background-color: rgba(255, 255, 255, 0.7);
@@ -59,15 +62,19 @@ button{
   
 }
 
-
-#slider img{
-  
+#slider-inner{
   width: 25vw;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  align-items: center;
+  justify-content: space-around;
+}
 
 
-  
+#slider-inner img{
+  width: 20vw;
 }
 
 #message{
@@ -143,9 +150,7 @@ button{
 .sun {
   position: absolute;
   border-radius: 50%;
-
-    position: absolute;
-  
+ 
     border-radius:50%;	
     background:rgb(223, 189, 79);
     opacity:0.9;			
@@ -176,6 +181,22 @@ button{
 
 .card {
   display: none;
+}
+
+#youstar{
+  display: none;
+  position: absolute;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  z-index: 3000;
+
+}
+
+#youstar img{
+
+  width: 150px;
+  height: 150px;
 }
 
 
@@ -214,12 +235,21 @@ display:block;
   overflow:hidden;
   object-fit: cover;
 }
+
+
+@keyframes zoom-in { 0% {
+  background-size: 100% 100%
+} 100% { 
+  background-size: 150% 150%; } }
+  
 .stars {
 
 background:#000 url(stars2.png) repeat top center;
 transition: transform .10s;
 z-index:0;
+animation:zoom-in 100s linear infinite alternate; 
 }
+
 
 @keyframes spin { 100% { transform:scale(1.5); } }
 

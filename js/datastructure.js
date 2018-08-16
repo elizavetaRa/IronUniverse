@@ -22,7 +22,7 @@ var Me = function (r, x, y, meClass) {
     this.r = r;
     this.x = x;
     this.y = y;
-    this.velocity = 0.002
+    this.velocity = 2
 
     this.currentCircle;
 

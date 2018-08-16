@@ -20,9 +20,8 @@ $(document).ready(function () {
     //Start animation for menu
 
     var left = $("#slider").css("left");
-    $("#slider").css({left: left}).animate({"left": 0}, 2000);
+    $("#slider").css({ left: left }).animate({ "left": 0 }, 2000);
 
-    produceMessage("Hello Ironhacker, the Iron-God sent you to become a new star in the Iron Universe.")
 
     // Object declarations
 
@@ -48,6 +47,16 @@ $(document).ready(function () {
     produceHtmlCircle(path6);
 
     game.circleArray = [path1, path2, path3, path4, path5, path6]
+
+
+    var me = new Me(0, 0, 0, "me1");
+    produceHtmlMe(me);
+    me.currentCircle = game.circleArray[0];
+    var moveMe = setInterval(function () {
+        moveMeOnCircle(me, game.circleArray[0]);
+    }, 20)
+
+
 
     $("#startGame").click(function () {
         if ($("#startGame").hasClass("on")) {
@@ -81,12 +90,12 @@ $(document).ready(function () {
 
 
             //desturbing things on start
-            
-            produceHittable(10, "comet", game.circleArray[2], 0.005, -1)
 
-            produceHittable(8, "comet", game.circleArray[3], 0.003, 1)
+            produceHittable(10, "comet", game.circleArray[2], 0.02, -1)
 
-            produceHittable(5, "planet", game.circleArray[4], 0.006, -1)
+            produceHittable(8, "comet", game.circleArray[3], 0.012, 1)
+
+            produceHittable(5, "planet", game.circleArray[4], 0.024, -1)
 
         } else {
 
@@ -98,13 +107,8 @@ $(document).ready(function () {
     });
 
 
-    
-    var me = new Me(0, 0, 0, "me1");
-    produceHtmlMe(me);
-    me.currentCircle = game.circleArray[0];
-    var moveMe = setInterval(function () {
-        moveMeOnCircle(me, game.circleArray[0]);
-    }, 5)
+
+
 
 
     // Key functions for movements inside and outside
@@ -116,19 +120,22 @@ $(document).ready(function () {
 
             moveMe = setInterval(function () {
                 moveMeOnCircle(me, me.currentCircle);
-            }, 1)
+            }, 20)
         } else if (event.keyCode == 79 && !(game.circleArray.indexOf(me.currentCircle) == 0)) {
             clearInterval(moveMe);
             me.currentCircle = game.circleArray[game.circleArray.indexOf(me.currentCircle) - 1]
 
             moveMe = setInterval(function () {
                 moveMeOnCircle(me, me.currentCircle);
-            }, 1)
+            }, 20)
             //easter egg coming!
-        } else if (event.keyCode == 76){          
+        } else if (event.keyCode == 76) {
             game.lives++;
-        } else if (event.keyCode == 83){
+        } else if (event.keyCode == 83) {
             gameStop = !gameStop
+        } else if (e.keyCode == 13 || e.keyCode == 32) {
+            return false;
+            e.preventDefault();
         }
     });
 
@@ -137,77 +144,124 @@ $(document).ready(function () {
 
     var collisionCheck = setInterval(function () {
 
-        $(".comet, .planet").each(function () {
+        if (gameStop == false) {
 
-            if (hitCheck($(this), $("#me"))) {
-                if ($("#me").hasClass("hittable")) {
-                    game.lives--;
-                    $("#hits").text("LIVES: " + game.lives)
-                    $("#me").toggleClass("hittable")
-                    var wait = setTimeout(function () {
+            $(".comet, .planet").each(function () {
+
+                if (hitCheck($(this), $("#me"))) {
+                    if ($("#me").hasClass("hittable")) {
+                        game.lives--;
+                        $("#hits").text("LIVES: " + game.lives)
                         $("#me").toggleClass("hittable")
-                    }, 1000)
+                        var wait = setTimeout(function () {
+                            $("#me").toggleClass("hittable")
+                        }, 1000)
+
+                    }
 
                 }
+            })
+
+            $(".collectible").each(function () {
+
+                if (hitCheck($(this), $("#me"))) {
+                    $(this).removeClass("collectible")
+                    $(this).toggle(700)
+                    game.collectedElements.push($(this))
+                    game.collectibleElements.splice(game.collectibleElements.indexOf($(this)), 1);
+
+
+                    // Show collected cards instead of placeholder
+                    $("#ph" + game.collectedElements.length).hide(500);
+                    $("#c" + game.collectedElements.length).show(500);
+
+
+                    var timeout = setTimeout(function () {
+                        if (game.collectibleElements[game.collectibleElements.length - 1]) {
+                            game.collectibleElements[game.collectibleElements.length - 1].toggle(2000)
+                        }
+
+                    }, 2500)
+
+
+                    // Game levels depending on amount of collected elements
+                    if (game.collectedElements.length === 2) {
+                        produceHittable(10, "planet", game.circleArray[1], 0.007, 1)
+                    }
+
+                    if (game.collectedElements.length === 4) {
+                        produceMessage("You got REACT, so now your speed is going up!", "THAT'S COOL!")
+                        me.velocity = me.velocity + me.velocity 
+                    }
+
+
+
+                    if (game.collectedElements.length === 5) {
+                        produceHittable(7, "comet", game.circleArray[0], 0.003, 1)
+
+                    }
+
+                    if (game.collectedElements.length === 7) {
+                        produceHittable(10, "comet", game.circleArray[2], 0.01, 1)
+                    }
+
+                    // if all elements are collected, you win
+                    if (game.collectedElements.length === 1) {
+
+                        gameStop = true;
+                        $("#me").hide()
+                        produceMessage("Congrats! You got everthing to be the new IRONSTAR!", "COOOL")
+                        var winTimeout = setTimeout(function () {
+                            
+
+                            setTimeout(function () {
+                                hideMessage()
+                                
+                                game.collectibleElements.forEach(function (el) {
+                                    el.show()
+                                    $("#youstar").css({ top: gameHeight / 2 - 75, left: gameWidth / 2 - 75 }).show()
+                                })
+                            }, 1000)
+
+
+
+                        }, 2000)
+
+
+                    }
+
+
+                }
+            })
+
+            // Lives up if coin
+            if (coin !== undefined && hitCheck($(".coin"), $("#me"))) {
+                coin.hide()
+                coin.removeClass(".coin")
+                game.lives++
+                $("#hits").text("LIVES: " + game.lives)
+
+                var toggleCoin = setTimeout(function () {
+                    coin.addClass("coin")
+                    coin.css(randomPosition(game.circleArray))
+                    coin.show(500)
+                }, 3000)
+
 
             }
-        })
-
-        $(".collectible").each(function () {
-
-            if (hitCheck($(this), $("#me"))) {
-                $(this).removeClass("collectible")
-                $(this).toggle(700)
-                game.collectedElements.push($(this))
-                game.collectibleElements.splice(game.collectibleElements.indexOf($(this)), 1);
-
-
-                // Show collected cards instead of placeholder
-                $("#ph" + game.collectedElements.length).hide(500);
-                $("#c" + game.collectedElements.length).show(500);
-
-
-                var timeout = setTimeout(function () {
-                    game.collectibleElements[game.collectibleElements.length - 1].toggle(2000)
-                }, 2500)
-
-
-                // Game levels depending on amount of collected elements
-                if (game.collectedElements.length === 2) {
-                    produceHittable(10, "planet", game.circleArray[1], 0.009, 1)
-                }
-
-                if (game.collectedElements.length === 5) {
-                    produceHittable(10, "comet", game.circleArray[2], 0.01, 1)
-                }
-                // if all elements are collected, you win
-                if (game.collectedElements.length === 8) {
-
-                    var winTimeout = setTimeout(function(){
-                        alert("WON! NOW YOU ARE THE NEW IRONSTAR!")
-        
-                    }, 1000)}
-                
-
-            }
-        })
-
-        // lives up
-        if (coin !== undefined && hitCheck($(".coin"), $("#me"))) {
-            coin.hide()
-            coin.removeClass(".coin")
-            game.lives++
-            $("#hits").text("LIVES: " + game.lives)
-
-            var toggleCoin = setTimeout(function () {
-                coin.addClass("coin")
-                coin.css(randomPosition(game.circleArray))
-                coin.show(500)
-            }, 3000)
-
-
         }
 
+    })
+
+
+
+    $("#message button").click(function () {
+
+        hideMessage()
+
+        setTimeout(function () {
+            gameStop = false;
+        }, 1800)
 
     })
 
