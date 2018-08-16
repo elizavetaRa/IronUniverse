@@ -232,31 +232,43 @@ function produceHittable(r, hittableClass, circle, t, direction) {
 
 
 function moveObjOnCircle(hittable, objId, circle, t, direction) {
-
-    hittable.t += t;
-    var xcenter = gameWidth / 2;
-    var ycenter = gameHeight / 2;
-    var newLeft = Math.floor(xcenter + direction * (circle.r * Math.cos(hittable.t))) - hittable.r / 2;
-    var newTop = Math.floor(ycenter + (circle.r * Math.sin(hittable.t))) - hittable.r / 2;
-    $(objId).animate({
-        top: newTop,
-        left: newLeft,
-    }, 0);
+    if (!gameStop) {
+        hittable.t += t;
+        var xcenter = gameWidth / 2;
+        var ycenter = gameHeight / 2;
+        var newLeft = Math.floor(xcenter + direction * (circle.r * Math.cos(hittable.t))) - hittable.r / 2;
+        var newTop = Math.floor(ycenter + (circle.r * Math.sin(hittable.t))) - hittable.r / 2;
+        $(objId).animate({
+            top: newTop,
+            left: newLeft,
+        }, 0);
+    }
 }
 
 
 function moveMeOnCircle(me, circle) {
 
+    if (!gameStop) {
+        p += me.velocity;
+        var xcenter = gameWidth / 2 - 25;
+        var ycenter = gameHeight / 2 - 25;
+        var newLeft = Math.floor(xcenter + (circle.r * Math.cos(p)));
+        var newTop = Math.floor(ycenter + (circle.r * Math.sin(p)));
+        $("#me").animate({
+            top: newTop,
+            left: newLeft,
+        }, 0);
+    }
 
-    p += me.velocity;
-    var xcenter = gameWidth / 2 - 25;
-    var ycenter = gameHeight / 2 - 25;
-    var newLeft = Math.floor(xcenter + (circle.r * Math.cos(p)));
-    var newTop = Math.floor(ycenter + (circle.r * Math.sin(p)));
-    $("#me").animate({
-        top: newTop,
-        left: newLeft,
-    }, 0);
+}
 
+function produceMessage(text){
+
+        //Anamation for message
+        gameStop = false;
+        var mestop = $("#message").css("top")
+        var mesheight = gameHeight*20/100/2
+        $("#message h2").text(text)
+        $("#message").css({top: mestop}).animate({"top": gameHeight/2-mesheight}, 2000);        
 
 }

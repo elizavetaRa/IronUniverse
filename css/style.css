@@ -1,9 +1,10 @@
 body {
   margin: 0;
+  overflow: hidden;
 }
 
 h1, p, h2{
-  color: white;
+  color: rgb(0, 0, 0);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -28,33 +29,67 @@ button{
   background-color: #ffffff;
 }
 
-#left-col{
-  background-color: rgba(255, 255, 255, 0.4);
-  padding: 20px 20px;
-
+#left-col {
+  position: relative;
+}
+#left-col{ 
   width: 27vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   z-index: 1000;
+  align-items: center;
+  left: 0px;
+
+  
+}
+
+#slider{
+  width: 27vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  align-items: center;
+  position: absolute;
+  left: -100vw;
+  background-color: rgba(255, 255, 255, 0.7);
+
+  
+  
+}
+
+
+#slider img{
+  
+  width: 25vw;
+  padding-top: 20px;
+  padding-bottom: 20px;
 
 
   
 }
 
-#left-col img{
-  
-  width: 20vw;
-  padding-bottom: 20px;
+#message{
+
+  width: 73vw;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  top: -30vh;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 2000;
+}
+#message h2{
+  background-color: white;
 }
 
 #task, #level-status{
-  border: 1px solid #aa9e9e;
-  box-shadow: 1px 1px 20px 2px #aa9e9e; 
-  margin-bottom: 5vh; 
-  
   text-align: center;
-  background-color: #0e0e50;
-  border-radius: 10%;
+
 }
 
 #collected-things {
@@ -78,7 +113,7 @@ button{
 }
 
 #gamefield {
-  width: 70vw;
+  width: 73vw;
   height: 100vh;
   position: relative;
   z-index: 1000;

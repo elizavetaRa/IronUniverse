@@ -7,14 +7,22 @@ var flag;
 var p = 0; //step for me
 var game;
 var coin;
+var gameStop = false;
 
 $(document).ready(function () {
+
 
     game = new Game()
     gameWidth = $("#gamefield").width();
     gameHeight = $("#gamefield").height();
 
 
+    //Start animation for menu
+
+    var left = $("#slider").css("left");
+    $("#slider").css({left: left}).animate({"left": 0}, 2000);
+
+    produceMessage("Hello Ironhacker, the Iron-God sent you to become a new star in the Iron Universe.")
 
     // Object declarations
 
@@ -48,7 +56,8 @@ $(document).ready(function () {
             $("#startGame").text("RESET")
 
 
-            //elements to collect
+            //Elements to collect
+
             var html = produceHtmlCircle(new Circle(25, "html")).hide().toggle(500)
 
             var css = produceHtmlCircle(new Circle(25, "css")).hide();
@@ -66,19 +75,18 @@ $(document).ready(function () {
             var mongo = produceHtmlCircle(new Circle(25, "mongo")).hide()
 
             game.collectibleElements.push(mongo, angular, node, jquery, react, js, css, html)
-            //console.log(game.collectibleElements)
 
             coin = produceHtmlCircle(new Circle(10, "coin"))
 
 
 
             //desturbing things on start
-            produceHittable(10, "comet", game.circleArray[2], 0.007, -1)
-            produceHittable(8, "comet", game.circleArray[3], 0.006, 1)
-            produceHittable(5, "planet", game.circleArray[4], 0.008, -1)
+            
+            produceHittable(10, "comet", game.circleArray[2], 0.005, -1)
 
+            produceHittable(8, "comet", game.circleArray[3], 0.003, 1)
 
-
+            produceHittable(5, "planet", game.circleArray[4], 0.006, -1)
 
         } else {
 
@@ -90,7 +98,7 @@ $(document).ready(function () {
     });
 
 
-
+    
     var me = new Me(0, 0, 0, "me1");
     produceHtmlMe(me);
     me.currentCircle = game.circleArray[0];
@@ -116,6 +124,11 @@ $(document).ready(function () {
             moveMe = setInterval(function () {
                 moveMeOnCircle(me, me.currentCircle);
             }, 1)
+            //easter egg coming!
+        } else if (event.keyCode == 76){          
+            game.lives++;
+        } else if (event.keyCode == 83){
+            gameStop = !gameStop
         }
     });
 
@@ -167,12 +180,19 @@ $(document).ready(function () {
                 if (game.collectedElements.length === 5) {
                     produceHittable(10, "comet", game.circleArray[2], 0.01, 1)
                 }
-                //game.collectibleElements[indexOf($(this))].
+                // if all elements are collected, you win
+                if (game.collectedElements.length === 8) {
+
+                    var winTimeout = setTimeout(function(){
+                        alert("WON! NOW YOU ARE THE NEW IRONSTAR!")
+        
+                    }, 1000)}
+                
 
             }
         })
 
-        // lifes up
+        // lives up
         if (coin !== undefined && hitCheck($(".coin"), $("#me"))) {
             coin.hide()
             coin.removeClass(".coin")
