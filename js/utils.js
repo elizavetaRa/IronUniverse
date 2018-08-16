@@ -22,6 +22,14 @@ function produceHtmlCircle(circle) {
         "left": left
     })
 
+    if (circle.circleClass == "comet") {
+        $("<img src='img/bug.png'></img>").css({
+            "width": circleWidth,
+            "height": circleHeight
+        })
+            .appendTo($("#" + id))
+    }
+
 
 
 
@@ -196,6 +204,8 @@ function produceHtmlMe(me) {
     htmlMe.appendTo($("#gamefield"));
     htmlMe.addClass = "hittable"
 
+    
+
 
     me.htmlMe = htmlMe;
 
@@ -224,7 +234,7 @@ function produceHittable(r, hittableClass, circle, t, direction) {
     var selectorHittable = '#' + hittable.id;
     var startTime = setInterval(function () {
         moveObjOnCircle(hittable, selectorHittable, circle, t, direction);
-    }, 1000/50)
+    }, 1000 / 50)
 
     return hittable
 }
@@ -234,8 +244,8 @@ function produceHittable(r, hittableClass, circle, t, direction) {
 function moveObjOnCircle(hittable, objId, circle, t, direction) {
     if (!gameStop) {
         //if (window.debug)
-            //console.log("DEBUG");
-        
+        //console.log("DEBUG");
+
         hittable.t += t;
         var xcenter = gameWidth / 2;
         var ycenter = gameHeight / 2;
@@ -252,9 +262,10 @@ function moveObjOnCircle(hittable, objId, circle, t, direction) {
 function moveMeOnCircle(me, circle) {
 
     if (!gameStop) {
-        p += me.velocity / circle.r;
-        var xcenter = gameWidth / 2 - 25;
-        var ycenter = gameHeight / 2 - 25;
+
+        p += me.direction * me.velocity / circle.r;
+        var xcenter = gameWidth / 2 - 20;
+        var ycenter = gameHeight / 2 - 20;
         var newLeft = Math.floor(xcenter + (circle.r * Math.cos(p)));
         var newTop = Math.floor(ycenter + (circle.r * Math.sin(p)));
         $("#me").css({
@@ -266,10 +277,10 @@ function moveMeOnCircle(me, circle) {
 }
 
 function produceMessage(text, buttontext) {
-
+    console.log(text)
     //Anamation for message
     gameStop = true;
-    var mestop = $("#message").css("top")
+    var mestop = -gameHeight * 1.4
     var mesheight = gameHeight * 20 / 100 / 2
     $("#message h2").text(text)
     $("#message button").text(buttontext)
@@ -279,6 +290,6 @@ function produceMessage(text, buttontext) {
 
 function hideMessage() {
     var mesheight = gameHeight * 20 / 100 / 2
-    $("#message").css({ top: gameHeight / 2 - mesheight }).animate({ "top": -gameHeight / 3 }, 2000);
+    $("#message").css({ top: gameHeight / 2 - mesheight }).animate({ "top": gameHeight * 1.4 }, 2000);
 
 }

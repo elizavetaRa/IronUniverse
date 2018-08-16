@@ -1,17 +1,12 @@
 
 var Circle = function (r, circleClass, x, y) {
+    
     this.id;
-
     this.r = r;
-
     this.x = x;
-
     this.y = y;
-
     this.t;
-
     this.htmlCircle;
-
     this.circleClass = circleClass;
 
 }
@@ -23,6 +18,7 @@ var Me = function (r, x, y, meClass) {
     this.x = x;
     this.y = y;
     this.velocity = 2
+    this.direction = 1
 
     this.currentCircle;
 
