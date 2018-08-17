@@ -17,7 +17,7 @@ var Me = function (r, x, y, meClass) {
     this.r = r;
     this.x = x;
     this.y = y;
-    this.velocity = 2
+    this.velocity = 2.5
     this.direction = 1
 
     this.currentCircle;
@@ -37,8 +37,6 @@ var Game = function () {
     this.collectedElements = [];
     this.circleArray = []
     this.lives = 3;
-    this.coins = 0;
-    this.addCoin
 
 
 }

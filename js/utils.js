@@ -34,11 +34,20 @@ function produceHtmlCircle(circle) {
 
 
     if (circle.circleClass == "sun") {
-        $("<img src='img/sun.png'></img>").css({
-            "width": circleWidth,
-            "height": circleHeight
+
+        $("<div id='shine'></div>").css({
+            "width": 100,
+            "height": 100
         })
             .appendTo($("#" + id))
+
+        $("<img src='img/sun.png'></img>").css({
+            "width": 130,
+            "height": 130
+        })
+            .appendTo($("#" + id))
+
+
 
 
     }
@@ -204,7 +213,7 @@ function produceHtmlMe(me) {
     htmlMe.appendTo($("#gamefield"));
     htmlMe.addClass = "hittable"
 
-    
+
 
 
     me.htmlMe = htmlMe;

@@ -9,7 +9,10 @@ var game;
 var coin;
 var gameStop = false;
 
+
+
 $(document).ready(function () {
+    $("#background_sound").volume = 0.2
 
 
     game = new Game()
@@ -25,7 +28,7 @@ $(document).ready(function () {
 
     // Object declarations
 
-    var sun = new Circle(50, "sun")
+    var sun = new Circle(65, "sun")
     produceHtmlCircle(sun);
 
     var path1 = new Circle(320, "path")
@@ -153,6 +156,7 @@ $(document).ready(function () {
                 if (hitCheck($(this), $("#me"))) {
                     if ($("#me").hasClass("hittable")) {
                         game.lives--;
+                        $("#collision_sound").trigger("play")
                         $("#hits").text("LIVES: " + game.lives)
                         $("#me").toggleClass("hittable")
                         var wait = setTimeout(function () {
@@ -171,7 +175,7 @@ $(document).ready(function () {
                     $(this).toggle(700)
                     game.collectedElements.push($(this))
                     game.collectibleElements.splice(game.collectibleElements.indexOf($(this)), 1);
-
+                    $("#element_sound").trigger("play")
 
                     // Show collected cards instead of placeholder
 
@@ -215,9 +219,9 @@ $(document).ready(function () {
                         produceMessage("Congrats! You got everything to be the new IRONSTAR!", "COOOL, I am a star!")
                         setTimeout(function () {
                             hideMessage()
-                            $("#youstar").css({ top: gameHeight / 2 - 75, left: gameWidth / 2 - 75 }).show()
+                            $("#youstar").css({ top: gameHeight / 2 - 60, left: gameWidth / 2 - 60, opacity: 1 })
 
-                        }, 3000)
+                        }, 4000)
 
 
                     }
@@ -232,6 +236,7 @@ $(document).ready(function () {
                 coin.removeClass(".coin")
                 game.lives++
                 $("#hits").text("LIVES: " + game.lives)
+                $("#coin_sound").trigger("play")
 
                 var toggleCoin = setTimeout(function () {
                     coin.addClass("coin")
@@ -240,7 +245,7 @@ $(document).ready(function () {
                 }, 3000)
             }
 
-            if (game.lives === 0){
+            if (game.lives === 0) {
                 gameStop = true;
                 $("#message button").remove()
                 produceMessage("You lost :(  Say thanks to asteroids with bugs, they are guilty.")
@@ -254,7 +259,6 @@ $(document).ready(function () {
     $("#message button").click(function () {
 
         hideMessage()
-
         setTimeout(function () {
             gameStop = false;
         }, 1800)
