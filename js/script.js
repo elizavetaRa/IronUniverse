@@ -11,6 +11,10 @@ var gameStop = false;
 
 $(document).ready(function () {
 
+
+    
+
+
     game = new Game()
     gameWidth = $("#gamefield").width();
     gameHeight = $("#gamefield").height();
@@ -58,6 +62,8 @@ $(document).ready(function () {
 
 
     $("#startGame").click(function () {
+
+        $("#background_sound").trigger("play");
         if ($("#startGame").hasClass("on")) {
 
             $("#startGame").toggleClass("on")
