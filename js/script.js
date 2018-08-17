@@ -3,17 +3,13 @@ var gameWidth;
 var gameHeight;
 var idproducer = 0;
 var flag;
-//var t = 0;
-var p = 0; //step for me
+var p = 0; //step for me-Object
 var game;
 var coin;
 var gameStop = false;
 
 
-
 $(document).ready(function () {
-    $("#background_sound").volume = 0.2
-
 
     game = new Game()
     gameWidth = $("#gamefield").width();

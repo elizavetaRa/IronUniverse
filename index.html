@@ -5,13 +5,18 @@
 <head>
   <meta charset="utf-8">
 
-  <title>THE GAME</title>
+  <title>Iron Universe</title>
 
   <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
+  <audio id="background_sound" src="sounds/background.wav" autoplay loop></audio>
+  <audio id="element_sound" src="sounds/element.ogg"></audio>
+  <audio id="coin_sound" src="sounds/coin.wav"></audio>
+  <audio id="collision_sound" src="sounds/collision.flac"></audio>
+
 
   <div id="container">
 
@@ -31,12 +36,15 @@
 
             <h1>Rules</h1>
             <p>
-              Want to become a new STAR in Iron Universe? 
-              Collect webdev elements, avoid other planets and asteroids, they contain bugs!
+              Want to become a new STAR in Iron Universe? Collect webdev elements, avoid other planets and asteroids, they contain bugs!
+              Collect coins for lives.
             </p>
-            <h4>Press <span> _i_</span> to move inside</h4>
-            <h4>Press <span> _o_</span> to move outside</h4>
-            <h4>Press <span>_s_</span> to stop</h4>
+            <h4>Press
+              <span> _i_</span> to move inside</h4>
+            <h4>Press
+              <span> _o_</span> to move outside</h4>
+            <h4>Press
+              <span>_s_</span> to stop</h4>
             <button id="startGame" class="on">START GAME</button>
 
             <h2 id="hits">LIVES: 3</h2>
@@ -79,7 +87,7 @@
       </div>
 
       <div id="youstar">
-        <img id ="starpic" src="img/youstar.png"></img>
+        <img id="starpic" src="img/youstar.png"></img>
       </div>
 
     </div>
@@ -90,11 +98,6 @@
 
   </div>
 
-
-  <audio id = "element_sound" src="sounds/element.ogg" ></audio>
-  <audio id = "coin_sound" src="sounds/coin.wav"></audio>
-  <audio id = "collision_sound" src="sounds/collision.flac" ></audio>
-  <audio id = "background_sound" src="sounds/background.wav" autoplay loop ></audio>
 
 
 

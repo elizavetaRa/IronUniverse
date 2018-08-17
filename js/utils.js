@@ -172,8 +172,6 @@ function produceHtmlCircle(circle) {
         htmlCircle.addClass("hitting")
 
     }
-
-
     circle.htmlCircle = htmlCircle;
     circle.x = gameHeight / 2;
     circle.y = gameWidth / 2;
